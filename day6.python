@@ -1,0 +1,45 @@
+
+return a new sorted merged list from K sorted lists, each with size N. Before we move on any further, you should take some time to think about the solution!
+
+First, go through an example. This buys time, makes sure you understand the problem, and lets you gain some intuition for the problem. For example, if we had [[10, 15, 30], [12, 15, 20], [17, 20, 32]], the result should be [10, 12, 15, 15, 17, 20, 20, 30, 32].
+
+
+import heapq
+def merge(lists):
+    merged_list = []
+
+    heap = [(lst[0], i, 0) for i, lst in enumerate(lists) if lst]
+    heapq.heapify(heap)
+
+    while heap:
+        val, list_ind, element_ind = heapq.heappop(heap)
+
+        merged_list.append(val)
+
+        if element_ind + 1 < len(lists[list_ind]):
+            next_tuple = (lists[list_ind][element_ind + 1],list_ind,element_ind + 1)
+            heapq.heappush(heap, next_tuple)
+    return merged_list
+n=int(input())
+l=[]
+for i in range(n):
+    m=int(input())
+    l1=[]
+    for j in range(0,m):
+        ele=int(input())
+        l1.append(ele)
+    l.append(l1)
+print(l)
+r=merge(l)
+r.sort();
+print(r)
+
+
+# without using heap
+# print(l)
+# m=[]
+# for i in  l:
+#     for j in i:
+#         m.append(j)
+        
+# print(m)
